@@ -7,17 +7,17 @@ import (
 
 type Prompt struct {
 	gorm.Model
-	Text       string `gorm:"uniqueIndex"`
-	CreatedBy  *string
-	Answered   bool
-	AnsweredOn *time.Time
-	Priority   uint
-	Responses  []Response
+	Text       string     `gorm:"uniqueIndex" json:"text"`
+	CreatedBy  *string    `json:"created_by"`
+	Answered   bool       `json:"answered"`
+	AnsweredOn *time.Time `json:"answered_on"`
+	Priority   uint       `json:"priority"`
+	Responses  []Response `json:"responses"`
 }
 
 type Response struct {
 	gorm.Model
-	Text     string
-	PromptID uint
-	Votes    int32
+	Text     string `json:"text"`
+	PromptID uint   `json:"prompt_id"`
+	Votes    int32  `json:"votes"`
 }
