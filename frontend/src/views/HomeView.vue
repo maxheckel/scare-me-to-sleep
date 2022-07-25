@@ -19,6 +19,7 @@ import Response from "@/components/Response.vue";
 
 <template>
   <main class="p-10">
+    Updated Daily at the witching hour (EST)
     <h1 class="text-4xl my-5 font-serif font-bold">A ghoulish AI is asked:</h1>
     <h1 class="text-4xl font-serif">{{ data.question.replace('reddit', 'everyone') }}</h1>
     <Response v-for="response in data.responses" :response="response"></Response>
