@@ -28,7 +28,7 @@ func main() {
 	}
 
 	client := services.NewOpenAIClient(cfg)
-	for range make([]int, 10) {
+	for range make([]int, 25) {
 		resp, err := client.Generate(&nextPrompt)
 		if err != nil {
 			panic(err)
