@@ -15,6 +15,7 @@ func (a App) writeError(err error, w http.ResponseWriter) {
 		Error: err.Error(),
 		Code:  500,
 	}
+	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(errOut.Code)
 	outBytes, err := json.Marshal(errOut)
 	if err != nil {
@@ -28,6 +29,7 @@ func (a App) writeJSON(obj interface{}, w http.ResponseWriter) {
 	if err != nil {
 		panic(err)
 	}
+	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(200)
 	w.Write(outBytes)
 }

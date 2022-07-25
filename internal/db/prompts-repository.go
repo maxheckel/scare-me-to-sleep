@@ -15,7 +15,7 @@ type Prompts struct {
 }
 
 func (p Prompts) GetDay(daysBack int) (*domain.Prompt, error) {
-	//TODO implement me
+
 	panic("implement me")
 }
 

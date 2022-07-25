@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/maxheckel/scare-me-to-sleep/internal/config"
 	"github.com/maxheckel/scare-me-to-sleep/internal/db"
+	"github.com/rs/cors"
 	"gorm.io/gorm"
 	"log"
 	"net/http"
@@ -30,16 +31,22 @@ func NewApp(cfg *config.Config) (*App, error) {
 
 func (a App) Start() {
 	rtr := mux.NewRouter()
+
 	rtr.Handle("/healthcheck", RecoverWrap(http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 		writer.Write([]byte("OK"))
 	})))
 
 	rtr.Handle("/api/day", RecoverWrap(http.HandlerFunc(a.GetDay)))
 
+	rtr.PathPrefix("/").Handler(RecoverWrap(spaHandler{
+		staticPath: "frontend/dist",
+		indexPath:  "index.html",
+	}))
+
 	http.Handle("/", rtr)
 	log.Println("Listening...")
 
-	http.ListenAndServe(":3001", http.DefaultServeMux)
+	http.ListenAndServe(":3001", cors.Default().Handler(rtr))
 }
 
 func RecoverWrap(h http.Handler) http.Handler {
