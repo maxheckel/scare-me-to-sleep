@@ -46,7 +46,7 @@ func (a App) Start() {
 	http.Handle("/", rtr)
 	log.Println("Listening...")
 
-	http.ListenAndServe(":3001", cors.Default().Handler(rtr))
+	http.ListenAndServe(":80", cors.Default().Handler(rtr))
 }
 
 func RecoverWrap(h http.Handler) http.Handler {
