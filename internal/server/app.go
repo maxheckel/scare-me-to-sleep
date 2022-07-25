@@ -2,6 +2,7 @@ package server
 
 import (
 	"errors"
+	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/maxheckel/scare-me-to-sleep/internal/config"
 	"github.com/maxheckel/scare-me-to-sleep/internal/db"
@@ -46,7 +47,9 @@ func (a App) Start() {
 	http.Handle("/", rtr)
 	log.Println("Listening...")
 
-	http.ListenAndServe(":80", cors.Default().Handler(rtr))
+	if err := http.ListenAndServe(":80", cors.Default().Handler(rtr)); err != nil {
+		fmt.Println(err)
+	}
 }
 
 func RecoverWrap(h http.Handler) http.Handler {
