@@ -25,6 +25,6 @@ func NewPromptsRepository(db *gorm.DB) PromptsRepository {
 
 func (p Prompts) GetToday() (*domain.Prompt, error) {
 	nextPrompt := &domain.Prompt{}
-	err := p.DB.Preload("Responses").First(&nextPrompt, "answered = true").Order("answered_on").Error
+	err := p.DB.Preload("Responses").Last(&nextPrompt, "answered = true").Order("answered_on ASC").Error
 	return nextPrompt, err
 }
