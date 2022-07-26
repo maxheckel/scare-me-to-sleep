@@ -9,9 +9,8 @@
 </template>
 
 <script setup lang="ts">
-import { faker } from '@faker-js/faker';
 import {reactive} from "vue";
-const name = faker.name.findName();
+const name = "John";
 let visible = reactive({
   show: true
 });
